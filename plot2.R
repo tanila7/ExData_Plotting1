@@ -21,6 +21,10 @@ plot2 <- function (){
                         col.names = names, colClasses = colClasses, comment.char = "", 
                         nrows = nrows)
     
+    #checking for NA
+    na <- sapply(pcons, function(x) any(is.na(x)))
+    
+    
     #ctreate one POSIX column from the two given
     library("lubridate")
     timeString <- paste(pcons$Date, pcons$Time)
@@ -31,9 +35,8 @@ plot2 <- function (){
     
     #make a plot
     par(mfrow = c(1,1))
-    plot(pcons$Time, pcons$Global_active_power, type = "n", xlab = "", 
+    plot(pcons$Time, pcons$Global_active_power, type = "l", xlab = "", 
          ylab = "Global Active Power (kilowatts)")
-    lines(pcons$Time, pcons$Global_active_power)
     
     #copy to file
     dev.copy(png, file = "plot2.png")
