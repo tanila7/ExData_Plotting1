@@ -21,6 +21,9 @@ plot1 <- function (){
                         col.names = names, colClasses = colClasses, comment.char = "", 
                         nrows = nrows)
     
+    #checking for NA
+    na <- sapply(pcons, function(x) any(is.na(x)))
+    
     #ctreate one POSIX column from the two given
     library("lubridate")
     timeString <- paste(pcons$Date, pcons$Time)
