@@ -29,15 +29,18 @@ plot3 <- function (){
     #replacing Date and Time column with new Time column of class POSIX
     pcons <- select(pcons, 3:9) %>% mutate(Time = timePOSIX) %>% select(Time, 1:7)
     
+    
+    #checking for NA
+    na <- sapply(pcons, function(x) any(is.na(x)))
+    
    
     #make a plot
     par(mfrow = c(1,1))
     plot(pcons$Time, pcons$Sub_metering_1, xlab = "", ylab = "Energy sub metering", 
-         type = "n")
-    lines(pcons$Time, pcons$Sub_metering_1, col = "black")
-    lines(pcons$Time, pcons$Sub_metering_2, col = "red")
+         type = "l")
+        lines(pcons$Time, pcons$Sub_metering_2, col = "red")
     lines(pcons$Time, pcons$Sub_metering_3, col = "blue")
-    legend("topright", lwd = 2, pch = "-", col = c("black", "red", "blue"), 
+    legend("topright", lwd = 2, col = c("black", "red", "blue"), 
            legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
     
     #copy to file
